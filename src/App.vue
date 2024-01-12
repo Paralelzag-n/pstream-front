@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <h1 class="text-red-600">Hello My bros</h1>
+    <h1 class="text-red-600">Hello from Pstream</h1>
   </div>
 </template>
 
