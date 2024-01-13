@@ -1,9 +1,9 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div>
-    <h1 class="text-red-600">Hello from Pstream</h1>
-  </div>
+  <main class="bg-dark-blue min-h-[100vh]">
+    <RouterView />
+  </main>
 </template>
 
 <style scoped></style>

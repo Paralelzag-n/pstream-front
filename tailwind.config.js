@@ -2,7 +2,16 @@
 export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        purple: "#9747FC",
+        red: "#FC4747",
+        white: "#FFFFFF",
+        "dark-blue": "#10141E",
+        "greyish-blue": "#5A698F",
+        "semi-dark-blue": "#161D2F",
+      },
+    },
   },
   plugins: [],
 };
