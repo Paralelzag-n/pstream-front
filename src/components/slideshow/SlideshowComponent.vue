@@ -89,9 +89,7 @@ onUnmounted(() => {
       <!-- Next Next Image -->
       <SlideshowItemComponent :show="props.shows[nextNextShow]" :slideshow-image-width="slideshowImageWidth" class="brightness-50"/>
     </div>
-    <div class="flex justify-between px-6 w-full absolute top-1/2 -translate-y-1/2">
-      <div @click="viewPreviousShow" class="transition-all cursor-pointer bg-gradient-to-br from-indigo-500/75 to-indigo-700/75 hover:scale-110 text-white font-bold py-6 px-5 rounded shadow-md select-none"> &lt </div>
-      <div @click="viewNextShow" class="transition-all cursor-pointer bg-gradient-to-br from-indigo-500/75 to-indigo-700/75 hover:scale-110 text-white font-bold py-6 px-5 rounded shadow-md select-none"> > </div>
-    </div>
+      <div @click="viewPreviousShow" class="absolute top-1/2 -translate-y-1/2 left-10 transition-all cursor-pointer bg-gradient-to-br from-indigo-500/75 to-indigo-700/75 hover:scale-110 text-white font-bold py-7 px-6 rounded shadow-md select-none"> &lt </div>
+      <div @click="viewNextShow" class="absolute top-1/2 -translate-y-1/2 right-10 transition-all cursor-pointer bg-gradient-to-br from-indigo-500/75 to-indigo-700/75 hover:scale-110 text-white font-bold py-7 px-6 rounded shadow-md select-none"> > </div>
   </div>
 </template>
