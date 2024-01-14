@@ -14,6 +14,9 @@ export default {
       height: {
         slideshow: '36rem'
       },
+      backgroundImage: {
+        'black-to-transparent': 'linear-gradient(to top, black, transparent)',
+      },
     },
   },
   plugins: [],
