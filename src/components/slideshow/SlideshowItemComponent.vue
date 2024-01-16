@@ -68,7 +68,7 @@ onUnmounted(() => {
       <source type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <div class="absolute bottom-0 left-0 flex flex-col gap-3 w-full bg-black-to-transparent p-10 transition-all" :class="{'opacity-100': !videoReady, 'opacity-0': videoReady}">
+    <div class="absolute bottom-0 left-0 flex flex-col gap-3 w-full bg-black-to-transparent p-10 transition-all duration-500" :class="{'opacity-100': !videoReady, 'opacity-0 group-hover:opacity-100': videoReady}">
       <h2 class="font-medium text-purple">{{ props.show.name }}</h2>
       <div class="flex gap-2 items-center">
         <h2 class="bg-purple text-white rounded w-12 text-center text-lg">{{props.show.rating}}</h2>
