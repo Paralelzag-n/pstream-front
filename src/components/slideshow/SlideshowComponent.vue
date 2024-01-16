@@ -99,7 +99,7 @@ function toggleHoveringSlideshow(value: boolean){
       <!-- Next Next Image -->
       <SlideshowItemComponent :mute-video="videosMuted" :key="props.shows[nextNextShow].name" :show="props.shows[nextNextShow]" :slideshow-image-width="slideshowImageWidth" class="brightness-50"/>
     </div>
-    <div @click="viewPreviousShow" :class="{'opacity-0': !slideShowHovering, 'opacity-100': slideShowHovering}" class="absolute top-1/2 duration-300 -translate-y-1/2 left-10 transition-all cursor-pointer bg-gradient-to-br from-indigo-500/75 to-indigo-700/75 hover:scale-110 text-white font-bold py-7 px-6 rounded shadow-md select-none"> &lt </div>
-    <div @click="viewNextShow" :class="{'opacity-0': !slideShowHovering, 'opacity-100': slideShowHovering}" class="absolute top-1/2 duration-300 -translate-y-1/2 right-10 transition-all cursor-pointer bg-gradient-to-br from-indigo-500/75 to-indigo-700/75 hover:scale-110 text-white font-bold py-7 px-6 rounded shadow-md select-none"> > </div>
+    <div @click="viewPreviousShow" :class="{'opacity-0': !slideShowHovering, 'opacity-100': slideShowHovering}" class="absolute top-1/2 duration-300 -translate-y-1/2 left-10 transition-all cursor-pointer bg-gradient-to-br from-indigo-500/75 to-indigo-700/75 hover:scale-110 text-white font-bold py-7 px-6 rounded-md shadow-md select-none"> &lt </div>
+    <div @click="viewNextShow" :class="{'opacity-0': !slideShowHovering, 'opacity-100': slideShowHovering}" class="absolute top-1/2 duration-300 -translate-y-1/2 right-10 transition-all cursor-pointer bg-gradient-to-br from-indigo-500/75 to-indigo-700/75 hover:scale-110 text-white font-bold py-7 px-6 rounded-md shadow-md select-none"> > </div>
   </div>
 </template>
