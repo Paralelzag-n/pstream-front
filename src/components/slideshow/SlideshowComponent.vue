@@ -8,7 +8,7 @@ const props = defineProps<{
 }>()
 
 const currentShow = ref<number>(0)
-const videosMuted = ref<boolean>(false)
+const videosMuted = ref<boolean>(true)
 const nextShow = computed(()=> currentShow.value + 1 < props.shows.length ? currentShow.value + 1 : 0)
 const previousShow = computed(()=> currentShow.value - 1 !== -1 ? currentShow.value - 1 : props.shows.length - 1)
 const nextNextShow = computed(() => {
@@ -25,6 +25,7 @@ const computedImageWidth = computed(()=>{
   return 0
 })
 
+const slideshowChange = ref(0);
 const slideInterval = ref<any>(null);
 
 function startSlideShow() {
@@ -43,6 +44,7 @@ const computedTranslateX = computed(()=>{
 })
 
 function viewPreviousShow(){
+  slideshowChange.value++
   if(!transitionInProgress.value){
     transitionInProgress.value = true
     animateSlideshowTranslateX.value = -computedImageWidth.value - 8
@@ -55,6 +57,7 @@ function viewPreviousShow(){
   }
 }
 function viewNextShow(){
+  slideshowChange.value++
   if(!transitionInProgress.value) {
     transitionInProgress.value = true
     animateSlideshowTranslateX.value = computedImageWidth.value + 8
@@ -93,7 +96,7 @@ function toggleHoveringSlideshow(value: boolean){
       <!-- Previous Image -->
       <SlideshowItemComponent :mute-video="videosMuted" :key="props.shows[previousShow].name" @click="viewPreviousShow" :show="props.shows[previousShow]" :slideshow-image-width="slideshowImageWidth" :class="{'brightness-100': animateSlideshowTranslateX < 0, 'brightness-50': animateSlideshowTranslateX >= 0}"/>
       <!-- Main Image -->
-      <SlideshowItemComponent @click="toggleMute" :mute-video="videosMuted" :key="props.shows[currentShow].name" class="shadow-2xl" :show="props.shows[currentShow]" :slideshow-image-width="slideshowImageWidth" :main-slideshow="true" :class="{'brightness-50 transition duration-500': animateSlideshowTranslateX !== 0, 'brightness-100':animateSlideshowTranslateX === 0}"/>
+      <SlideshowItemComponent :slideshowChange="slideshowChange" @click="toggleMute" :mute-video="videosMuted" :key="props.shows[currentShow].name" class="shadow-2xl" :show="props.shows[currentShow]" :slideshow-image-width="slideshowImageWidth" :main-slideshow="true" :class="{'brightness-50 transition duration-500': animateSlideshowTranslateX !== 0, 'brightness-100':animateSlideshowTranslateX === 0}"/>
       <!-- Next Image -->
       <SlideshowItemComponent :mute-video="videosMuted" :key="props.shows[nextShow].name" @click="viewNextShow" :show="props.shows[nextShow]" :slideshow-image-width="slideshowImageWidth" :class="{'brightness-100': animateSlideshowTranslateX > 0, 'brightness-50': animateSlideshowTranslateX <= 0 }"/>
       <!-- Next Next Image -->

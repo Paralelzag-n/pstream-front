@@ -4,6 +4,7 @@ import {onMounted, onUnmounted, ref, watch} from "vue";
 const props = defineProps<{
   slideshowImageWidth: number,
   mainSlideshow?: boolean
+  slideshowChange?: number
   muteVideo: boolean
   show: any
 }>()
@@ -12,14 +13,14 @@ const videoRef = ref<HTMLVideoElement|null>(null)
 const videoReady = ref<boolean>(false);
 const showCover = ref<boolean>(true)
 
-watch(() => props.show, async () => {
-  videoReady.value = false;
-  showCover.value = true;
-
-  if (videoRef.value) {
-    videoRef.value.pause();
-    videoRef.value.src = "";
-  }
+watch(() => props.slideshowChange, async () => {
+  showCover.value = true
+  setTimeout(()=>{
+    videoReady.value = false
+    if (videoRef.value) {
+      unloadAndStopVideo()
+    }
+  })
 
   await loadVideo();
 }, { immediate: true });
@@ -35,9 +36,7 @@ async function loadVideo() {
           setTimeout(()=>{
             videoReady.value = true;
             if(videoRef.value) videoRef.value.play();
-            setTimeout(()=>{
-              showCover.value = false
-            }, 500)
+            showCover.value = false
           }, 3000)
         };
       } catch (error) {
@@ -47,16 +46,20 @@ async function loadVideo() {
   }
 }
 
-onMounted(async () => {
-  await loadVideo()
-});
-
-onUnmounted(() => {
+function unloadAndStopVideo(){
   if (videoRef.value) {
     videoRef.value.pause();
     videoRef.value.removeAttribute('src');
     videoRef.value.src = "";
   }
+}
+
+onMounted(async () => {
+  await loadVideo()
+});
+
+onUnmounted(() => {
+  unloadAndStopVideo()
 });
 </script>
 
