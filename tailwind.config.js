@@ -12,7 +12,7 @@ export default {
         "semi-dark-blue": "#161D2F",
       },
       height: {
-        slideshow: '36rem'
+        slideshow: '28rem'
       },
       backgroundImage: {
         'black-to-transparent': 'linear-gradient(to top, black, transparent)',
