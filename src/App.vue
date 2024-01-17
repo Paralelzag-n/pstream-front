@@ -11,7 +11,7 @@ const shows = ref([
     seasons: 2,
     rating: '8.2',
     genre: 'Thriller',
-    duration: '50 min' // Average duration per episode or total runtime
+    duration: '50' // Average duration per episode or total runtime
   },
   {
     name: 'Arcane',
@@ -20,8 +20,8 @@ const shows = ref([
     releaseDate: '2021',
     seasons: 1,
     rating: '9.0',
-    genre: 'Animation',
-    duration: '40 min'
+    genre: 'Action',
+    duration: '40'
   },
   {
     name: 'Your Name',
@@ -30,8 +30,8 @@ const shows = ref([
     releaseDate: '2016',
     seasons: 1,
     rating: '8.4',
-    genre: 'Anime',
-    duration: '106 min' // Total runtime for movies
+    genre: 'Romance',
+    duration: '106' // Total runtime for movies
   },
   {
     name: 'Bojack Horseman',
@@ -40,8 +40,8 @@ const shows = ref([
     releaseDate: '2014',
     seasons: 6,
     rating: '8.7',
-    genre: 'Animated Comedy',
-    duration: '25 min'
+    genre: 'Comedy-drama',
+    duration: '25'
   },
   {
     name: 'Rick and Morty',
@@ -50,8 +50,8 @@ const shows = ref([
     releaseDate: '2013',
     seasons: 5,
     rating: '9.2',
-    genre: 'Sci-Fi Comedy',
-    duration: '22 min',
+    genre: 'Sci-Fi',
+    duration: '22',
   }
 ]);
 </script>

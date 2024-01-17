@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, onUnmounted, ref, watch} from "vue";
+import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 
 const props = defineProps<{
   slideshowImageWidth: number,
@@ -14,6 +14,8 @@ const emit = defineEmits(['muteVideo','onVideoEnd'])
 const videoRef = ref<HTMLVideoElement|null>(null)
 const videoReady = ref<boolean>(false);
 const showCover = ref<boolean>(true)
+
+const playVideoTimeout = ref<number| null>(null)
 
 watch(() => props.slideshowChange, async () => {
   showCover.value = true
@@ -46,11 +48,11 @@ async function loadVideo() {
         videoRef.value.src = videoSrc.default;
         videoRef.value.load();
         videoRef.value.oncanplaythrough = () => {
-          setTimeout(()=>{
+          playVideoTimeout.value = setTimeout(()=>{
             videoReady.value = true;
             if(videoRef.value) videoRef.value.play();
             showCover.value = false
-          }, 3000)
+          }, 5000)
         };
       } catch (error) {
         console.error("Error loading video:", error);
@@ -75,6 +77,7 @@ function handleVideoEnd(){
 }
 
 function toggleSlideshowMode(){
+  clearTimeout(playVideoTimeout.value)
   if(!showCover.value){
     showCover.value = true
     videoReady.value = false
@@ -90,6 +93,19 @@ function toggleSlideshowMode(){
   }
 }
 
+const computedFormattedDuration = computed(()=>{
+  return (duration: number) => {
+    if (duration < 60) {
+      return `${duration} min`;
+    } else {
+      let hours = Math.floor(duration / 60);
+      let minutes = duration % 60;
+      return `${hours}h ${minutes}min`;
+    }
+  }
+
+})
+
 onMounted(async () => {
   await loadVideo()
 });
@@ -102,7 +118,7 @@ onUnmounted(() => {
 <template>
   <div class="h-full rounded-3xl overflow-hidden shrink-0 border-solid relative group" :style="{'width': `${props.slideshowImageWidth}%`}" >
     <img v-show="showCover" :src="props.show.imageUrl" alt="image" class="rounded-3xl h-full w-full object-cover transition-all duration-500" :class="{'opacity-100': !videoReady, 'opacity-0': videoReady}">
-    <div class="bottom-0 right-0 m-10 absolute z-10 flex gap-2">
+    <div class="bottom-0 right-0 m-8 absolute z-10 flex gap-2">
       <i v-if="videoReady" @click="handleMuteVideo" style="backdrop-filter: blur(1rem);" :class="{'fa-volume-xmark': props.muteVideo, 'fa-volume-high': !props.muteVideo}" class="fa-solid cursor-pointer flex text-white items-center justify-center bg-gradient-to-br from-indigo-500/50 to-indigo-700/25 transition-all opacity-50 group-hover:opacity-100 hover:from-indigo-500/75 hover:to-indigo-700/50 w-10 h-10 rounded-full"/>
       <i @click="toggleSlideshowMode" :class="{'fa-image': !showCover, 'fa-film': showCover}" class="fa-solid cursor-pointer text-white flex items-center justify-center bg-gradient-to-br from-indigo-500/50 to-indigo-700/25 transition-all opacity-50 group-hover:opacity-100 hover:from-indigo-500/75 hover:to-indigo-700/50 w-10 h-10 rounded-full"></i>
     </div>
@@ -111,13 +127,13 @@ onUnmounted(() => {
       <source type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <div class="absolute bottom-0 select-none left-0 flex flex-col gap-3 w-full bg-black-to-transparent p-10 transition-all duration-500" :class="{'opacity-100': !videoReady, 'opacity-0 group-hover:opacity-100': videoReady}">
+    <div class="absolute bottom-0 select-none left-0 flex flex-col gap-3 w-full bg-black-to-transparent p-8 transition-all duration-500" :class="{'opacity-100': !videoReady, 'opacity-0 group-hover:opacity-100': videoReady}">
       <h2 class="font-medium text-white">{{ props.show.name }}</h2>
-      <div class="flex gap-2 items-center">
-        <h2 class="bg-gradient-to-br from-indigo-500/75 to-indigo-700/50 text-white rounded w-12 text-center text-lg" style="backdrop-filter: blur(1rem);">{{props.show.rating}}</h2>
-        <h2 class="text-white text-lg">{{props.show.releaseDate}}</h2>
-        <h2 class="text-white text-lg">{{props.show.genre}}</h2>
-        <h2 class="text-white text-lg">{{props.show.duration}}</h2>
+      <div class="flex gap-3 items-center">
+        <h2 class="bg-gradient-to-br from-indigo-500/75 to-indigo-700/50 text-white rounded text-center text-lg flex gap-1 items-center px-1" style="backdrop-filter: blur(1rem);"> <i class="fa-solid fa-star text-sm"></i> {{props.show.rating}}</h2>
+        <h2 class="text-white text-lg flex items-center gap-1"><i class="fa-solid fa-calendar text-sm"></i> {{props.show.releaseDate}}</h2>
+        <h2 class="text-white text-lg flex items-center gap-1"><i class="fa-solid fa-masks-theater text-sm"></i>{{props.show.genre}}</h2>
+        <h2 class="text-white text-lg flex items-center gap-1"><i class="fa-solid fa-clock text-sm"></i>{{computedFormattedDuration(props.show.duration)}}</h2>
       </div>
     </div>
   </div>
