@@ -14,5 +14,10 @@ import { EColor } from "../../ts/enums/color.enum.ts";
       />
       <h2 class="text-white absolute top-3 -left-4">PStream</h2>
     </div>
+    <nav>
+      <ul>
+        <li></li>
+      </ul>
+    </nav>
   </header>
 </template>
