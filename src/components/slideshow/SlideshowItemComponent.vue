@@ -217,15 +217,18 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <video
-      @ended="handleVideoEnd"
-      ref="videoRef"
-      class="rounded-3xl w-full h-full object-cover"
-      :muted="props.muteVideo"
-    >
-      <source type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <div class="relative bg-cover h-full bg-center vignette">
+      <video
+          @ended="handleVideoEnd"
+          ref="videoRef"
+          class="rounded-3xl w-full h-full object-cover"
+          :muted="props.muteVideo"
+      >
+        <source type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
     <div
       class="absolute bottom-0 select-none left-0 flex flex-col gap-3 w-full bg-black-to-transparent p-8 transition-all duration-500"
       :class="{
@@ -259,6 +262,17 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+.vignette::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(ellipse at center, transparent, rgba(0, 0, 0, 0.5) 90%);
+  pointer-events: none;
+}
+
 @keyframes glow {
   0% {
     filter: drop-shadow(0 0 2px white);
