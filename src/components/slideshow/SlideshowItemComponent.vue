@@ -16,7 +16,7 @@ const videoReady = ref<boolean>(false);
 const showCover = ref<boolean>(true);
 
 const playVideoTimeout = ref<number | null>(null);
-const timeToStartVideo = 5000;
+const timeToStartVideo = 3500;
 
 watch(
   () => props.slideshowChange,
@@ -133,20 +133,20 @@ function initialVideoStartIndicator(duration: number) {
   }, 1000 / 60);
 }
 
-const progress = ref(0);
-const radius = 26;
-const circumference = radius * 2 * Math.PI;
-
-const transitionSpeed = ref<number>(0.65);
+const progress = ref<number>(0);
+const transitionSpeed = ref<number>(0.15)
 
 const circleStyle = computed(() => {
+  const radius = 28;
+  const circumference = 2 * Math.PI * radius;
   const offset = circumference - (progress.value / 100) * circumference;
+
   return {
     strokeDasharray: `${circumference} ${circumference}`,
     strokeDashoffset: offset,
-    transform: "rotate(-90deg)",
-    transformOrigin: "50% 50%",
-    transition: `${transitionSpeed.value}s stroke-dashoffset`,
+    transform: 'rotate(-90deg)',
+    transformOrigin: '50% 50%',
+    transition: `stroke-dashoffset ${transitionSpeed.value}s`,
   };
 });
 
@@ -189,24 +189,25 @@ onUnmounted(() => {
 
       <div class="relative flex justify-center items-center">
         <svg
-          :class="{
+            :class="{
             'progress-complete': progress >= 100 && mainSlideshow,
             'opacity-0': !props.mainSlideshow,
           }"
-          class="progress-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-          width="56"
-          height="56"
+            class="progress-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            width="56"
+            height="56"
+            viewBox="0 0 60 60"
         >
           <circle
-            class="progress-ring__circle"
-            :style="circleStyle"
-            stroke="#9747FC"
-            stroke-width="2"
-            stroke-linecap="round"
-            fill="transparent"
-            r="20"
-            cx="28"
-            cy="28"
+              class="progress-ring__circle"
+              :style="circleStyle"
+              stroke="#9747FC"
+              stroke-width="4"
+              stroke-linecap="round"
+              fill="transparent"
+              r="28"
+              cx="30"
+              cy="30"
           />
         </svg>
         <i
@@ -293,7 +294,7 @@ onUnmounted(() => {
 
 .progress-complete {
   animation:
-    glow 1s ease-in-out infinite alternate,
+    glow 2s ease-in-out infinite alternate,
     fadeOut 2s ease forwards;
 }
 </style>
