@@ -31,3 +31,26 @@ h2 {
 h3 {
   font-size: 18px;
 }
+
+/* This styles the scrollbar track (the part the thumb moves along) */
+::-webkit-scrollbar-track {
+  background: #161D2F; /* Track color */
+}
+
+/* This styles the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  border-radius: 100vh;
+  backdrop-filter: blur(1rem);
+  background: linear-gradient(45deg, rgba(112, 43, 193, 0.5), rgba(138, 76, 215, 0.5)) ;
+}
+
+/* Handle the scrollbar thumb hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4f13a2; /* Thumb color on hover */
+}
+
+/* This styles the scrollbar itself (width, etc.) */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}

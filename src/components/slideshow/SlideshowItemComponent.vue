@@ -74,6 +74,22 @@ function handleVideoEnd(){
   emit('onVideoEnd')
 }
 
+function toggleSlideshowMode(){
+  if(!showCover.value){
+    showCover.value = true
+    videoReady.value = false
+    setTimeout(async ()=>{
+      if (videoRef.value)  videoRef.value.pause();
+    })
+  }else{
+    videoReady.value = true
+    showCover.value = false
+    if (videoRef.value) {
+      videoRef.value.play();
+    }
+  }
+}
+
 onMounted(async () => {
   await loadVideo()
 });
@@ -86,7 +102,11 @@ onUnmounted(() => {
 <template>
   <div class="h-full rounded-3xl overflow-hidden shrink-0 border-solid relative group" :style="{'width': `${props.slideshowImageWidth}%`}" >
     <img v-show="showCover" :src="props.show.imageUrl" alt="image" class="rounded-3xl h-full w-full object-cover transition-all duration-500" :class="{'opacity-100': !videoReady, 'opacity-0': videoReady}">
-    <i v-if="videoReady" @click="handleMuteVideo" style="backdrop-filter: blur(1rem);" :class="{'fa-volume-xmark': props.muteVideo, 'fa-volume-high': !props.muteVideo}" class="fa-solid cursor-pointer bottom-0 right-0 m-10 flex text-white items-center justify-center absolute z-10 bg-gradient-to-br from-indigo-500/50 to-indigo-700/25 transition-all opacity-50 group-hover:opacity-100 hover:from-indigo-500/75 hover:to-indigo-700/50 w-10 h-10 rounded-full"/>
+    <div class="bottom-0 right-0 m-10 absolute z-10 flex gap-2">
+      <i v-if="videoReady" @click="handleMuteVideo" style="backdrop-filter: blur(1rem);" :class="{'fa-volume-xmark': props.muteVideo, 'fa-volume-high': !props.muteVideo}" class="fa-solid cursor-pointer flex text-white items-center justify-center bg-gradient-to-br from-indigo-500/50 to-indigo-700/25 transition-all opacity-50 group-hover:opacity-100 hover:from-indigo-500/75 hover:to-indigo-700/50 w-10 h-10 rounded-full"/>
+      <i @click="toggleSlideshowMode" :class="{'fa-image': !showCover, 'fa-film': showCover}" class="fa-solid cursor-pointer text-white flex items-center justify-center bg-gradient-to-br from-indigo-500/50 to-indigo-700/25 transition-all opacity-50 group-hover:opacity-100 hover:from-indigo-500/75 hover:to-indigo-700/50 w-10 h-10 rounded-full"></i>
+    </div>
+
     <video @ended="handleVideoEnd" ref="videoRef" class="rounded-3xl w-full h-full object-cover" :muted="props.muteVideo">
       <source type="video/mp4">
       Your browser does not support the video tag.
