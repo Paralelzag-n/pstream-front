@@ -37,11 +37,11 @@ watch(
   () => props.isScrolledPast,
   (value) => {
     if (value) {
-      if (videoRef.value) {
+      if (videoRef.value && !showCover.value) {
         videoRef.value.pause();
       }
     } else {
-      if (videoRef.value) {
+      if (videoRef.value && !showCover.value) {
         videoRef.value.play();
       }
     }
@@ -118,7 +118,7 @@ const computedFormattedDuration = computed(() => {
   };
 });
 
-let initialVideoStartIndicatorInterval;
+let initialVideoStartIndicatorInterval: number;
 
 function initialVideoStartIndicator(duration: number) {
   const startTime = Date.now();
@@ -172,17 +172,21 @@ onUnmounted(() => {
       class="rounded-3xl h-full w-full object-cover transition-all duration-500"
       :class="{ 'opacity-100': !videoReady, 'opacity-0': videoReady }"
     />
+
     <div class="bottom-0 right-0 m-8 absolute z-10 flex gap-2">
-      <i
-        v-if="videoReady"
-        @click="handleMuteVideo"
-        style="backdrop-filter: blur(1rem)"
-        :class="{
-          'fa-volume-xmark': props.muteVideo,
-          'fa-volume-high': !props.muteVideo,
-        }"
-        class="fa-solid cursor-pointer flex text-white items-center justify-center bg-gradient-to-br from-indigo-500/50 to-indigo-700/25 transition-all opacity-50 group-hover:opacity-100 hover:from-indigo-500/75 hover:to-indigo-700/50 w-10 h-10 rounded-full"
-      />
+      <div class="group flex flex-col-reverse items-center">
+        <i
+          v-if="videoReady"
+          @click="handleMuteVideo"
+          style="backdrop-filter: blur(1rem)"
+          :class="{
+            'fa-volume-xmark': props.muteVideo,
+            'fa-volume-high': !props.muteVideo,
+          }"
+          class="fa-solid cursor-pointer flex text-white items-center justify-center bg-gradient-to-br from-indigo-500/50 to-indigo-700/25 transition-all opacity-50 group-hover:opacity-100 hover:from-indigo-500/75 hover:to-indigo-700/50 w-10 h-10 rounded-full"
+        />
+      </div>
+
       <div class="relative flex justify-center items-center">
         <svg
           :class="{
