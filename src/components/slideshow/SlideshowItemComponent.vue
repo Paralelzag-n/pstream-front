@@ -185,7 +185,10 @@ onUnmounted(() => {
       />
       <div class="relative flex justify-center items-center">
         <svg
-          :class="{ 'progress-complete': progress >= 100 }"
+          :class="{
+            'progress-complete': progress >= 100 && mainSlideshow,
+            'opacity-0': !props.mainSlideshow,
+          }"
           class="progress-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           width="56"
           height="56"
