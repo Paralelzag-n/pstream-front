@@ -7,15 +7,15 @@ export default {
         purple: "#9747FC",
         red: "#FC4747",
         white: "#FFFFFF",
-        "dark-blue": "#10141E",
+        "dark-blue": "rgb(16,20,30)",
         "grayish-blue": "#5A698F",
         "semi-dark-blue": "#161D2F",
       },
       height: {
-        slideshow: '32rem'
+        slideshow: '65vh'
       },
       backgroundImage: {
-        'black-to-transparent': 'linear-gradient(to top, black, transparent)',
+        'black-to-transparent': 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
       },
     },
   },

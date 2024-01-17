@@ -5,9 +5,11 @@ const props = defineProps<{
   slideshowImageWidth: number,
   mainSlideshow?: boolean
   slideshowChange?: number
+  isScrolledPast?: boolean
   muteVideo: boolean
   show: any
 }>()
+const emit = defineEmits(['muteVideo','onVideoEnd'])
 
 const videoRef = ref<HTMLVideoElement|null>(null)
 const videoReady = ref<boolean>(false);
@@ -15,15 +17,26 @@ const showCover = ref<boolean>(true)
 
 watch(() => props.slideshowChange, async () => {
   showCover.value = true
-  setTimeout(()=>{
+  setTimeout(async ()=>{
     videoReady.value = false
     if (videoRef.value) {
       unloadAndStopVideo()
+      await loadVideo();
     }
   })
-
-  await loadVideo();
 }, { immediate: true });
+
+watch(()=>props.isScrolledPast,(value)=>{
+  if(value){
+    if (videoRef.value) {
+      videoRef.value.pause()
+    }
+  }else {
+    if (videoRef.value) {
+      videoRef.value.play()
+    }
+  }
+})
 
 async function loadVideo() {
   if(props.mainSlideshow){
@@ -50,8 +63,15 @@ function unloadAndStopVideo(){
   if (videoRef.value) {
     videoRef.value.pause();
     videoRef.value.removeAttribute('src');
-    videoRef.value.src = "";
   }
+}
+
+function handleMuteVideo(){
+  emit('muteVideo')
+}
+
+function handleVideoEnd(){
+  emit('onVideoEnd')
 }
 
 onMounted(async () => {
@@ -64,17 +84,17 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="rounded-3xl overflow-hidden cursor-pointer h-full shrink-0 border-solid border-2 border-grayish-blue/10 relative group" :style="{'width': `${props.slideshowImageWidth}%`}">
-    <img v-show="showCover" :src="props.show.imageUrl" alt="image" class="h-full w-full object-cover transition-all duration-500" :class="{'opacity-100': !videoReady, 'opacity-0': videoReady}">
-    <img v-if="videoReady && props.muteVideo" src="../../assets/svg/mute.svg" alt="muteBTN" class="absolute z-10 top-1/2 -translate-x-1/2 left-1/2 -translate-y-1/2 bg-gradient-to-br from-indigo-500/75 to-indigo-700/75 transition-all group-hover:scale-110 w-20 h-20 rounded-full p-5">
-    <video ref="videoRef" class="w-full h-full object-cover" :muted="props.muteVideo">
+  <div class="h-full rounded-3xl overflow-hidden shrink-0 border-solid relative group" :style="{'width': `${props.slideshowImageWidth}%`}" >
+    <img v-show="showCover" :src="props.show.imageUrl" alt="image" class="rounded-3xl h-full w-full object-cover transition-all duration-500" :class="{'opacity-100': !videoReady, 'opacity-0': videoReady}">
+    <i v-if="videoReady" @click="handleMuteVideo" style="backdrop-filter: blur(1rem);" :class="{'fa-volume-xmark': props.muteVideo, 'fa-volume-high': !props.muteVideo}" class="fa-solid cursor-pointer bottom-0 right-0 m-10 flex text-white items-center justify-center absolute z-10 bg-gradient-to-br from-indigo-500/50 to-indigo-700/25 transition-all opacity-50 group-hover:opacity-100 hover:from-indigo-500/75 hover:to-indigo-700/50 w-10 h-10 rounded-full"/>
+    <video @ended="handleVideoEnd" ref="videoRef" class="rounded-3xl w-full h-full object-cover" :muted="props.muteVideo">
       <source type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <div class="absolute bottom-0 left-0 flex flex-col gap-3 w-full bg-black-to-transparent p-10 transition-all duration-500" :class="{'opacity-100': !videoReady, 'opacity-0 group-hover:opacity-100': videoReady}">
-      <h2 class="font-medium text-purple">{{ props.show.name }}</h2>
+    <div class="absolute bottom-0 select-none left-0 flex flex-col gap-3 w-full bg-black-to-transparent p-10 transition-all duration-500" :class="{'opacity-100': !videoReady, 'opacity-0 group-hover:opacity-100': videoReady}">
+      <h2 class="font-medium text-white">{{ props.show.name }}</h2>
       <div class="flex gap-2 items-center">
-        <h2 class="bg-purple text-white rounded w-12 text-center text-lg">{{props.show.rating}}</h2>
+        <h2 class="bg-gradient-to-br from-indigo-500/75 to-indigo-700/50 text-white rounded w-12 text-center text-lg" style="backdrop-filter: blur(1rem);">{{props.show.rating}}</h2>
         <h2 class="text-white text-lg">{{props.show.releaseDate}}</h2>
         <h2 class="text-white text-lg">{{props.show.genre}}</h2>
         <h2 class="text-white text-lg">{{props.show.duration}}</h2>
