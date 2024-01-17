@@ -3,8 +3,8 @@ import TheHeader from "./components/layout/TheHeader.vue";
 </script>
 
 <template>
-  <main class="bg-dark-blue min-h-[100%]">
-    <TheHeader></TheHeader>
+  <main class="bg-dark-blue pt-10 min-h-[100%]">
+    <TheHeader/>
     <RouterView />
   </main>
 </template>
