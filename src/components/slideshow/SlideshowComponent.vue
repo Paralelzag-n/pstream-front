@@ -68,7 +68,7 @@ function viewPreviousShow(){
   slideshowChange.value++
   if(!transitionInProgress.value){
     transitionInProgress.value = true
-    animateSlideshowTranslateX.value = -computedImageWidth.value - 4
+    animateSlideshowTranslateX.value = -computedImageWidth.value - 16
     setTimeout(()=>{
       transitionInProgress.value = false
       currentShow.value = currentShow.value - 1 === -1 ? props.shows.length - 1 : currentShow.value - 1
@@ -81,7 +81,7 @@ function viewNextShow(){
   slideshowChange.value++
   if(!transitionInProgress.value) {
     transitionInProgress.value = true
-    animateSlideshowTranslateX.value = computedImageWidth.value + 4
+    animateSlideshowTranslateX.value = computedImageWidth.value + 16
     setTimeout(() => {
       transitionInProgress.value = false
       currentShow.value = currentShow.value + 1 < props.shows.length ? currentShow.value + 1 : 0
