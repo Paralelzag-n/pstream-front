@@ -1,9 +1,12 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import TheHeader from "./components/layout/TheHeader.vue";
+</script>
 
 <template>
-  <div>
-    <h1 class="text-red-600">Hello from Pstream</h1>
-  </div>
+  <main class="bg-dark-blue min-h-[100%]">
+    <TheHeader />
+    <RouterView />
+  </main>
 </template>
 
 <style scoped></style>
