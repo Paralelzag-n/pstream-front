@@ -1,6 +1,7 @@
 export function validateEmail(email: string): string {
-  const emailRegex = /^[^\.\s][\w\-\.{2,}]+@([\w-]+\.)+[\w-]{2,}$/;
-  return emailRegex.test(email) ? "" : "Invalid email";
+  const emailRegex =
+    /^[^\.\s][a-zA-Z0-9\-\.]+@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/i;
+  return emailRegex.test(email) ? "" : "Invalid format";
 }
 
 export function validateLength(value: string, length: number = 8): string {

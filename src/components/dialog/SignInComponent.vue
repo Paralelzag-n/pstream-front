@@ -1,38 +1,40 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import {
+  validateEmail,
+  validateLength,
+  validateExists,
+} from "../../utils/validators";
 
-const emailIsEmpty = ref<boolean>(false);
-const passwordIsEmpty = ref<boolean>(false);
-const emailContainsAt = ref<boolean>(true);
-
-const emailModel = ref<string>("");
-const passwordModel = ref<string>("");
 const router = useRouter();
+const email = ref<string>("");
+const emailError = ref<string>("");
+const password = ref<string>("");
+const passwordError = ref<string>("");
+const passwordTogglerClicked = ref<boolean>(false);
 
-const emailContentValidator = () => {
-  if (emailModel.value.includes("@")) {
-    emailContainsAt.value = true;
-  } else {
-    emailContainsAt.value = false;
+const checkPassword = () => {
+  if (validateExists(password.value)) {
+    passwordError.value = validateExists(password.value);
+    return;
   }
+
+  passwordError.value = validateLength(password.value);
 };
 
-const emailInputValidator = () => {
-  emailModel.value === ""
-    ? (emailIsEmpty.value = true)
-    : (emailIsEmpty.value = false);
-};
-const passwordInputValidator = () => {
-  passwordModel.value === ""
-    ? (passwordIsEmpty.value = true)
-    : (passwordIsEmpty.value = false);
+const checkEmail = () => {
+  if (validateExists(email.value)) {
+    emailError.value = validateExists(email.value);
+    return;
+  }
+
+  emailError.value = validateEmail(email.value);
 };
 
 const validator = () => {
-  emailContentValidator();
-  emailInputValidator();
-  passwordInputValidator();
+  checkPassword();
+  checkEmail();
 };
 </script>
 
@@ -42,38 +44,50 @@ const validator = () => {
   >
     <h1 class="text-white text-3xl">Login</h1>
     <div
-      class="flex border-x-0 border-t-0 border border-b-1 border-greyish-blue"
+      class="flex justify-between border-x-0 border-t-0 border border-b-1 border-grayish-blue"
     >
       <input
-        @input="emailInputValidator"
-        v-model="emailModel"
+        @input="checkEmail"
+        @focus="emailError = ''"
+        v-model="email"
         placeholder="Email address"
-        type="url"
-        name=""
-        id=""
+        :class="!emailError ? 'w-full' : ''"
         class="my-input-class font-light text-white pb-2 px-2"
       />
 
-      <p v-if="emailIsEmpty" class="text-red">Can't be empty</p>
-      <p v-if="!emailContainsAt && !emailIsEmpty" class="text-red"></p>
+      <p v-if="emailError" class="text-red text-nowrap">{{ emailError }}</p>
     </div>
     <div
-      class="flex border-x-0 border-t-0 border border-b-1 border-greyish-blue"
+      class="flex border-x-0 border-t-0 border border-b-1 justify-between border-grayish-blue"
     >
       <input
-        @input="passwordInputValidator"
-        v-model="passwordModel"
+        :type="passwordTogglerClicked ? 'text' : 'password'"
+        @input="checkPassword"
+        @focus="passwordError = ''"
+        v-model="password"
         placeholder="Password"
-        type="url"
-        name=""
-        id=""
+        :class="passwordError ? 'w-40' : ''"
         class="my-input-class font-light text-white pb-2 px-2"
       />
-      <p v-if="passwordIsEmpty" class="text-red">Can't be empty</p>
+      <button
+        v-if="!passwordTogglerClicked && !passwordError"
+        @click="passwordTogglerClicked = !passwordTogglerClicked"
+        class="text-white"
+      >
+        Show
+      </button>
+      <button
+        v-if="passwordTogglerClicked && !passwordError"
+        @click="passwordTogglerClicked = !passwordTogglerClicked"
+        class="text-white"
+      >
+        Hide
+      </button>
+      <p v-if="passwordError" class="text-red">{{ passwordError }}</p>
     </div>
     <button
       @click="validator"
-      class="outline-none text-white bg-purple py-4 text-sm rounded-md"
+      class="outline-none text-white bg-purple py-4 text-md rounded-md"
     >
       Login to your account
     </button>
