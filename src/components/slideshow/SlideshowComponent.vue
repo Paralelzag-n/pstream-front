@@ -41,6 +41,7 @@ const previousPreviousShow = computed(() => {
     ? previousPreviousIndex
     : props.shows.length - 1;
 });
+
 const slideshowImageWidth = ref<number>(60); // in percentage
 const computedImageWidth = computed(() => {
   if (slideshowContainerRef.value)

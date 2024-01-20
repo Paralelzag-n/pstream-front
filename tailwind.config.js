@@ -10,6 +10,7 @@ export default {
         "dark-blue": "rgb(16,20,30)",
         "grayish-blue": "#5A698F",
         "semi-dark-blue": "#161D2F",
+        "unfocused": '#979797'
       },
       height: {
         slideshow: '65vh'

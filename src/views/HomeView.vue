@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import SlideshowComponent from "../components/slideshow/SlideshowComponent.vue";
+import ShowsComponent from "../components/shows/showsComponent.vue";
 
 const shows = ref([
   {
@@ -35,11 +36,35 @@ const shows = ref([
     genre: "Romance",
     duration: "106", // Total runtime for movies
   },
+  {
+    name: "Weathering with you",
+    imageUrl: "https://miro.medium.com/v2/resize:fit:3840/format:webp/1*3UfsMUAyT9jDQqnSP6aprQ.png",
+    loadVideo: () => import("../assets/videos/your_name.mp4"),
+    releaseDate: "2016",
+    seasons: 1,
+    rating: "8.4",
+    genre: "Romance",
+    duration: "106", // Total runtime for movies
+  },
+  {
+    name: "Weathering with you",
+    imageUrl: "https://pic-bstarstatic.akamaized.net/ugc/83c8985f73c7a04a111c5fbafbe689f9.jpg",
+    loadVideo: () => import("../assets/videos/your_name.mp4"),
+    releaseDate: "2016",
+    seasons: 1,
+    rating: "8.4",
+    genre: "Romance",
+    duration: "106", // Total runtime for movies
+  },
 ]);
 </script>
 
 <template>
   <SlideshowComponent :shows="shows" />
+  <div class="px-4 py-10">
+    <ShowsComponent title="Recommended for you" :shows="shows"/>
+  </div>
+
 </template>
 
 <style scoped></style>

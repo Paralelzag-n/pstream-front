@@ -1,0 +1,35 @@
+.heading-l{
+  @apply font-light text-white;
+  font-size: 32px;
+  letter-spacing: -0.5px;
+}
+
+.heading-m{
+  @apply font-light text-white;
+  font-size: 24px;
+  letter-spacing: 0;
+}
+
+.heading-s{
+  @apply font-medium text-white;
+  font-size: 24px;
+  letter-spacing: 0;
+}
+
+.heading-xs{
+  @apply font-medium text-white;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+.body-m{
+  @apply font-light text-unfocused;
+  font-size: 15px;
+  letter-spacing: 0;
+}
+
+.body-s{
+  @apply font-light text-unfocused;
+  font-size: 13px;
+  letter-spacing: 0;
+}
