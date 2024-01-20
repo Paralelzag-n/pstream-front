@@ -48,7 +48,7 @@ const shows = ref([
     duration: "106", // Total runtime for movies
   },
   {
-    name: "Weathering with you",
+    name: "Suzume",
     imageUrl:
       "https://pic-bstarstatic.akamaized.net/ugc/83c8985f73c7a04a111c5fbafbe689f9.jpg",
     loadVideo: () => import("../assets/videos/your_name.mp4"),
