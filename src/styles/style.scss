@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+@import "components/inputs.scss";
 @import "reset";
 @import "components/buttons";
 @import "typography";
@@ -37,7 +38,7 @@ h3 {
 
 /* This styles the scrollbar track (the part the thumb moves along) */
 ::-webkit-scrollbar-track {
-  background: #161D2F; /* Track color */
+  background: #161d2f; /* Track color */
 }
 
 /* This styles the scrollbar thumb (the draggable part) */
@@ -45,7 +46,11 @@ h3 {
   cursor: pointer;
   border-radius: 100vh;
   backdrop-filter: blur(1rem);
-  background: linear-gradient(45deg, rgba(112, 43, 193, 0.5), rgba(138, 76, 215, 0.5)) ;
+  background: linear-gradient(
+    45deg,
+    rgba(112, 43, 193, 0.5),
+    rgba(138, 76, 215, 0.5)
+  );
 }
 
 /* Handle the scrollbar thumb hover */

@@ -76,7 +76,7 @@ const validateAll = () => {
         v-model="email"
         placeholder="Email address"
         :class="!emailError ? 'w-full' : ''"
-        class="my-input-class font-light text-white pb-2 px-2"
+        class="app-input body-m pb-2 px-2"
       />
       <p v-if="emailError" class="text-red text-nowrap">{{ emailError }}</p>
     </div>
@@ -90,7 +90,7 @@ const validateAll = () => {
         @input="checkPassword"
         placeholder="Password"
         :class="passwordError ? 'w-40' : ''"
-        class="my-input-class font-light text-white pb-2 px-2"
+        class="app-input body-m pb-2 px-2"
       />
       <button
         v-if="!passwordTogglerClicked && !passwordError"
@@ -120,7 +120,7 @@ const validateAll = () => {
         v-model="repeatPassword"
         placeholder="Repeat password"
         :class="repeatPasswordError ? 'w-40' : ''"
-        class="my-input-class font-light text-white pb-2 px-2"
+        class="app-input body-m pb-2 px-2"
       />
 
       <p v-if="repeatPasswordError" class="text-red text-nowrap">
@@ -146,14 +146,4 @@ const validateAll = () => {
   </div>
 </template>
 
-<style scoped>
-.my-input-class {
-  outline: none;
-
-  background-image: none;
-  background-color: transparent;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-}
-</style>
+<style scoped></style>

@@ -35,6 +35,9 @@ const checkEmail = () => {
 const validator = () => {
   checkPassword();
   checkEmail();
+  if (!passwordError.value && !emailError.value) {
+    router.push({ name: "home" });
+  }
 };
 </script>
 
@@ -52,7 +55,7 @@ const validator = () => {
         v-model="email"
         placeholder="Email address"
         :class="!emailError ? 'w-full' : ''"
-        class="my-input-class font-light text-white pb-2 px-2"
+        class="app-input body-m pb-2 px-2"
       />
 
       <p v-if="emailError" class="text-red text-nowrap">{{ emailError }}</p>
@@ -67,7 +70,7 @@ const validator = () => {
         v-model="password"
         placeholder="Password"
         :class="passwordError ? 'w-40' : ''"
-        class="my-input-class font-light text-white pb-2 px-2"
+        class="app-input body-m pb-2 px-2"
       />
       <button
         v-if="!passwordTogglerClicked && !passwordError"
@@ -79,7 +82,7 @@ const validator = () => {
       <button
         v-if="passwordTogglerClicked && !passwordError"
         @click="passwordTogglerClicked = !passwordTogglerClicked"
-        class="text-white"
+        class="app-input body-m pb-2 px-2"
       >
         Hide
       </button>
@@ -87,7 +90,7 @@ const validator = () => {
     </div>
     <button
       @click="validator"
-      class="outline-none text-white bg-purple py-4 text-md rounded-md"
+      class="outline-none text-white bg-purple hover:bg-purple/50 py-4 text-md rounded-md"
     >
       Login to your account
     </button>
@@ -96,7 +99,7 @@ const validator = () => {
       <p>Don't have an account?</p>
       <p
         @click="router.push({ name: 'sign-up' })"
-        class="text-[#9747FC] cursor-pointer"
+        class="text-[#9747FC] cursor-pointer hover:text-white"
       >
         Sign Up
       </p>
@@ -104,14 +107,4 @@ const validator = () => {
   </div>
 </template>
 
-<style scoped>
-.my-input-class {
-  outline: none;
-
-  background-image: none;
-  background-color: transparent;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-}
-</style>
+<style scoped></style>
