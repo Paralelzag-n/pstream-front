@@ -68,7 +68,7 @@ const validateAll = () => {
   >
     <h1 class="text-white text-3xl">Sign Up</h1>
     <div
-      class="flex border-x-0 border-t-0 border border-b-1 border-grayish-blue"
+      class="flex justify-between border-x-0 border-t-0 border border-b-1 border-grayish-blue"
     >
       <input
         @input="checkEmail"
@@ -129,7 +129,7 @@ const validateAll = () => {
     </div>
     <button
       @click="validateAll"
-      class="outline-none text-white bg-purple py-4 text-md rounded-md"
+      class="outline-none text-white hover:bg-purple/50 bg-purple py-4 text-md rounded-md"
     >
       Create an account
     </button>
@@ -138,7 +138,7 @@ const validateAll = () => {
       <p>Already have an account?</p>
       <p
         @click="router.push({ name: 'sign-in' })"
-        class="text-[#9747FC] cursor-pointer"
+        class="text-[#9747FC] cursor-pointer hover:text-white"
       >
         Login
       </p>
