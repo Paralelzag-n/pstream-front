@@ -68,7 +68,7 @@ const validateAll = () => {
   >
     <h1 class="text-white text-3xl">Sign Up</h1>
     <div
-      class="flex border-x-0 border-t-0 border border-b-1 border-grayish-blue"
+      class="flex justify-between border-x-0 border-t-0 border border-b-1 border-grayish-blue"
     >
       <input
         @input="checkEmail"
@@ -76,7 +76,7 @@ const validateAll = () => {
         v-model="email"
         placeholder="Email address"
         :class="!emailError ? 'w-full' : ''"
-        class="my-input-class font-light text-white pb-2 px-2"
+        class="app-input body-m pb-2 px-2"
       />
       <p v-if="emailError" class="text-red text-nowrap">{{ emailError }}</p>
     </div>
@@ -90,7 +90,7 @@ const validateAll = () => {
         @input="checkPassword"
         placeholder="Password"
         :class="passwordError ? 'w-40' : ''"
-        class="my-input-class font-light text-white pb-2 px-2"
+        class="app-input body-m pb-2 px-2"
       />
       <button
         v-if="!passwordTogglerClicked && !passwordError"
@@ -120,7 +120,7 @@ const validateAll = () => {
         v-model="repeatPassword"
         placeholder="Repeat password"
         :class="repeatPasswordError ? 'w-40' : ''"
-        class="my-input-class font-light text-white pb-2 px-2"
+        class="app-input body-m pb-2 px-2"
       />
 
       <p v-if="repeatPasswordError" class="text-red text-nowrap">
@@ -129,7 +129,7 @@ const validateAll = () => {
     </div>
     <button
       @click="validateAll"
-      class="outline-none text-white bg-purple py-4 text-md rounded-md"
+      class="outline-none text-white hover:bg-purple/50 bg-purple py-4 text-md rounded-md"
     >
       Create an account
     </button>
@@ -138,7 +138,7 @@ const validateAll = () => {
       <p>Already have an account?</p>
       <p
         @click="router.push({ name: 'sign-in' })"
-        class="text-[#9747FC] cursor-pointer"
+        class="text-[#9747FC] cursor-pointer hover:text-white"
       >
         Login
       </p>
@@ -146,14 +146,4 @@ const validateAll = () => {
   </div>
 </template>
 
-<style scoped>
-.my-input-class {
-  outline: none;
-
-  background-image: none;
-  background-color: transparent;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-}
-</style>
+<style scoped></style>
