@@ -27,7 +27,7 @@ const checkPasswordsMatch = () => {
   repeatPasswordError.value = validateValuesMatch(
     repeatPassword.value,
     password.value,
-    "Password"
+    "Password",
   );
 };
 
