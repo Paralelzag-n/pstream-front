@@ -1,7 +1,8 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import SlideshowItemComponent from "./SlideshowItemComponent.vue";
 import { useElementBounding, useElementSize, useScroll } from "@vueuse/core";
+
 const slideshowContainerRef = ref<HTMLElement | null>(null);
 const { width: slideshowContainerWidth } = useElementSize(
   slideshowContainerRef,
@@ -54,6 +55,7 @@ const slideInterval = ref<any>(null);
 function startSlideShow() {
   slideInterval.value = setInterval(viewNextShow, 60000);
 }
+
 function stopSlideShow() {
   if (slideInterval.value) {
     clearInterval(slideInterval.value);
@@ -93,6 +95,7 @@ function viewPreviousShow() {
     resetAndStartSlideshow();
   }
 }
+
 function viewNextShow() {
   slideshowChange.value++;
   if (!transitionInProgress.value) {
@@ -121,6 +124,7 @@ onUnmounted(() => {
 });
 
 const slideShowHovering = ref<boolean>(false);
+
 function toggleHoveringSlideshow(value: boolean) {
   slideShowHovering.value = value;
 }
@@ -128,104 +132,104 @@ function toggleHoveringSlideshow(value: boolean) {
 
 <template>
   <div
-    class="relative h-slideshow overflow-hidden"
     ref="slideshowContainerRef"
+    class="relative h-slideshow overflow-hidden mt-6"
     @mouseenter="toggleHoveringSlideshow(true)"
     @mouseleave="toggleHoveringSlideshow(false)"
   >
     <div
-      class="h-slideshow flex absolute top-0 left-0 gap-4"
       :class="{ 'transition-all duration-700': transitionInProgress }"
       :style="{ transform: `translateX(${-computedTranslateX}px)` }"
+      class="h-slideshow flex absolute top-0 left-0 gap-4"
     >
       <!-- Previous Previous Image -->
       <SlideshowItemComponent
-        :mute-video="videosMuted"
         :key="props.shows[previousPreviousShow].name"
+        :mute-video="videosMuted"
         :show="props.shows[previousPreviousShow]"
         :slideshow-image-width="slideshowImageWidth"
         class="brightness-50"
       />
       <!-- Previous Image -->
       <SlideshowItemComponent
-        :mute-video="videosMuted"
         :key="props.shows[previousShow].name"
-        @click="viewPreviousShow"
-        :show="props.shows[previousShow]"
-        :slideshow-image-width="slideshowImageWidth"
-        class="cursor-pointer"
         :class="{
           'brightness-100': animateSlideshowTranslateX < 0,
           'brightness-50': animateSlideshowTranslateX >= 0,
         }"
+        :mute-video="videosMuted"
+        :show="props.shows[previousShow]"
+        :slideshow-image-width="slideshowImageWidth"
+        class="cursor-pointer"
+        @click="viewPreviousShow"
       />
       <!-- Main Image -->
       <SlideshowItemComponent
-        :isScrolledPast="isScrolledPast"
-        :slideshowChange="slideshowChange"
-        @onVideoEnd="viewNextShow"
-        @muteVideo="toggleMute"
-        :mute-video="videosMuted"
         :key="props.shows[currentShow].name"
-        class="shadow-2xl"
-        :show="props.shows[currentShow]"
-        :slideshow-image-width="slideshowImageWidth"
-        :main-slideshow="true"
         :class="{
           'brightness-50 transition duration-500':
             animateSlideshowTranslateX !== 0,
           'brightness-100': animateSlideshowTranslateX === 0,
         }"
+        :isScrolledPast="isScrolledPast"
+        :main-slideshow="true"
+        :mute-video="videosMuted"
+        :show="props.shows[currentShow]"
+        :slideshow-image-width="slideshowImageWidth"
+        :slideshowChange="slideshowChange"
+        class="shadow-2xl"
+        @muteVideo="toggleMute"
+        @onVideoEnd="viewNextShow"
       />
       <!-- Next Image -->
       <SlideshowItemComponent
-        :mute-video="videosMuted"
         :key="props.shows[nextShow].name"
-        @click="viewNextShow"
-        class="cursor-pointer"
-        :show="props.shows[nextShow]"
-        :slideshow-image-width="slideshowImageWidth"
         :class="{
           'brightness-100': animateSlideshowTranslateX > 0,
           'brightness-50': animateSlideshowTranslateX <= 0,
         }"
+        :mute-video="videosMuted"
+        :show="props.shows[nextShow]"
+        :slideshow-image-width="slideshowImageWidth"
+        class="cursor-pointer"
+        @click="viewNextShow"
       />
       <!-- Next Next Image -->
       <SlideshowItemComponent
-        :mute-video="videosMuted"
         :key="props.shows[nextNextShow].name"
+        :mute-video="videosMuted"
         :show="props.shows[nextNextShow]"
         :slideshow-image-width="slideshowImageWidth"
         class="brightness-50"
       />
     </div>
     <div
-      @click="viewPreviousShow"
       :class="{
         'opacity-0': !slideShowHovering,
         'opacity-100': slideShowHovering,
       }"
       class="absolute top-1/2 -translate-y-1/2 left-10 transition-all cursor-pointer rounded-lg shadow-md select-none group"
+      @click="viewPreviousShow"
     >
       <div
-        style="backdrop-filter: blur(1rem)"
         class="w-14 rounded-lg h-20 duration-300 bg-gradient-to-br from-indigo-500/50 to-indigo-700/40 group-hover:scale-125"
+        style="backdrop-filter: blur(1rem)"
       />
       <i
         class="fa-solid fa-chevron-left absolute text-white top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2"
       ></i>
     </div>
     <div
-      @click="viewNextShow"
       :class="{
         'opacity-0': !slideShowHovering,
         'opacity-100': slideShowHovering,
       }"
       class="absolute top-1/2 -translate-y-1/2 right-10 transition-all cursor-pointer rounded-lg shadow-md select-none group"
+      @click="viewNextShow"
     >
       <div
-        style="backdrop-filter: blur(1rem)"
         class="w-14 rounded-lg h-20 duration-300 bg-gradient-to-br from-indigo-500/50 to-indigo-700/40 group-hover:scale-125"
+        style="backdrop-filter: blur(1rem)"
       />
       <i
         class="fa-solid fa-chevron-right absolute text-white top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2"
