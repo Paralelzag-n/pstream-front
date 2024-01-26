@@ -1,14 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AuthenticationRoutes from "./authentication.route";
-
-const HomeView = () => import("../views/HomeView.vue");
+import HomeRoutes from "./home.route.ts";
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: [
-    ...AuthenticationRoutes,
-    { path: "/home", name: "home", component: HomeView },
-  ],
+  routes: [...AuthenticationRoutes, ...HomeRoutes],
 });
 
 export default router;
