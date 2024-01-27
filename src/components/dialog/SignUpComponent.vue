@@ -16,6 +16,8 @@ const passwordError = ref<string>("");
 const repeatPassword = ref<string>("");
 const repeatPasswordError = ref<string>("");
 
+const passwordTogglerClicked = ref<boolean>(false);
+
 const checkPasswordsMatch = () => {
   if (validateExists(repeatPassword.value)) {
     repeatPasswordError.value = validateExists(repeatPassword.value);
@@ -66,45 +68,68 @@ const validateAll = () => {
   >
     <h1 class="text-white text-3xl">Sign Up</h1>
     <div
-      class="flex border-x-0 border-t-0 border border-b-1 border-greyish-blue"
+      class="flex justify-between border-x-0 border-t-0 border border-b-1 border-grayish-blue"
     >
       <input
         @input="checkEmail"
+        @focus="emailError = ''"
         v-model="email"
         placeholder="Email address"
-        class="my-input-class font-light text-white pb-2 px-2"
+        :class="!emailError ? 'w-full' : ''"
+        class="app-input body-m pb-2 px-2"
       />
       <p v-if="emailError" class="text-red text-nowrap">{{ emailError }}</p>
     </div>
     <div
-      class="flex border-x-0 border-t-0 border border-b-1 border-greyish-blue"
+      class="flex justify-between border-x-0 border-t-0 border border-b-1 border-grayish-blue"
     >
       <input
+        :type="passwordTogglerClicked ? 'text' : 'password'"
+        @focus="passwordError = ''"
         v-model="password"
         @input="checkPassword"
         placeholder="Password"
-        class="my-input-class font-light text-white pb-2 px-2"
+        :class="passwordError ? 'w-40' : ''"
+        class="app-input body-m pb-2 px-2"
       />
+      <button
+        v-if="!passwordTogglerClicked && !passwordError"
+        @click="passwordTogglerClicked = !passwordTogglerClicked"
+        class="text-white"
+      >
+        Show
+      </button>
+      <button
+        v-if="passwordTogglerClicked && !passwordError"
+        @click="passwordTogglerClicked = !passwordTogglerClicked"
+        class="text-white"
+      >
+        Hide
+      </button>
       <p v-if="passwordError" class="text-red text-nowrap">
         {{ passwordError }}
       </p>
     </div>
     <div
-      class="flex border-x-0 border-t-0 border border-b-1 border-greyish-blue"
+      class="flex justify-between border-x-0 border-t-0 border border-b-1 border-grayish-blue"
     >
       <input
+        :type="passwordTogglerClicked ? 'text' : 'password'"
+        @focus="repeatPasswordError = ''"
         @input="checkPasswordsMatch"
         v-model="repeatPassword"
         placeholder="Repeat password"
-        class="my-input-class font-light text-white pb-2 px-2"
+        :class="repeatPasswordError ? 'w-40' : ''"
+        class="app-input body-m pb-2 px-2"
       />
+
       <p v-if="repeatPasswordError" class="text-red text-nowrap">
         {{ repeatPasswordError }}
       </p>
     </div>
     <button
       @click="validateAll"
-      class="outline-none text-white bg-purple py-4 text-sm rounded-md"
+      class="outline-none text-white hover:bg-purple/50 bg-purple py-4 text-md rounded-md"
     >
       Create an account
     </button>
@@ -113,7 +138,7 @@ const validateAll = () => {
       <p>Already have an account?</p>
       <p
         @click="router.push({ name: 'sign-in' })"
-        class="text-[#9747FC] cursor-pointer"
+        class="text-[#9747FC] cursor-pointer hover:text-white"
       >
         Login
       </p>
@@ -121,14 +146,4 @@ const validateAll = () => {
   </div>
 </template>
 
-<style scoped>
-.my-input-class {
-  outline: none;
-
-  background-image: none;
-  background-color: transparent;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-}
-</style>
+<style scoped></style>
