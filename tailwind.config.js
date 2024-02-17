@@ -8,9 +8,10 @@ export default {
         red: "#FC4747",
         white: "#FFFFFF",
         "darkest-blue": "rgb(8,11,16)",
-        "dark-blue": "rgb(16,20,30)",
+        "dark-blue": "rgb(8,11,16)",
         "grayish-blue": "#5A698F",
         "semi-dark-blue": "#161D2F",
+        "details-black": "rgb(20,20,28)",
         unfocused: "#c8c8c8",
       },
       height: {
