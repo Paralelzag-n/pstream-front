@@ -18,7 +18,7 @@ watch(y, (newValue, oldValue) => {
 
 <template>
   <header
-    :class="{ '-translate-y-full': headerVisible }"
+    :class="{ '-translate-y-full': headerVisible || y >= 0 }"
     class="h-20 flex items-center justify-between px-20 fixed top-0 left-0 z-50 bg-dark-blue w-screen transition duration-[0.4s]"
   >
     <div class="flex relative cursor-pointer text-purple">
@@ -34,32 +34,27 @@ watch(y, (newValue, oldValue) => {
       <ul class="flex gap-8 text-white text-lg">
         <li class="cursor-pointer header_item">
           <div class="flex items-center gap-2">
-            <!--            <BaseIcon :size="20" color="white" name="ClapperIcon" />-->
             <h4>Home</h4>
           </div>
         </li>
         <li class="cursor-pointer header_item">
           <div class="flex items-center gap-2">
-            <!--            <BaseIcon :size="17" color="white" name="MovieIcon" />-->
             <h4>Movies</h4>
           </div>
         </li>
         <li class="cursor-pointer header_item">
           <div class="flex items-center gap-2">
-            <!--            <BaseIcon :size="18" color="white" name="TVShowIcon" />-->
             <h4>TV Shows</h4>
           </div>
         </li>
         <li class="cursor-pointer header_item">
           <div class="flex items-center gap-2">
-            <!--            <BaseIcon :size="19" color="white" name="FireIcon" />-->
             <h4>Recently Added</h4>
           </div>
         </li>
 
         <li class="cursor-pointer header_item">
           <div class="flex items-center gap-2">
-            <!--            <BaseIcon :size="17" color="white" name="ListIcon" />-->
             <h4>My List</h4>
           </div>
         </li>
