@@ -1,7 +1,7 @@
 export interface IMovie {
   name: string;
   imageUrl: string;
-  loadVideo: () => Promise<typeof import("*.mp4")>;
+  loadVideo: () => Promise<typeof import("*.mp4") | string>;
   seasons?: number;
   releaseDate: string;
   rating: string;
