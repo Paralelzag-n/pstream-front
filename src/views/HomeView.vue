@@ -4,6 +4,7 @@ import SlideshowComponent from "../components/slideshow/SlideshowComponent.vue";
 import ShowsComponent from "../components/shows/showsComponent.vue";
 import { useMovieStore } from "../store/movie.store";
 import { EGenre } from "../enums/store/movie.enum";
+import SingleShowComponent from "../components/shows/singleShowComponent.vue";
 
 const movieStore = useMovieStore();
 
@@ -35,6 +36,7 @@ console.log(computedCrimeMovies);
     <ShowsComponent :shows="computedTVseries" title="Romance Movies" />
     <ShowsComponent :shows="computedCrimeMovies" title="Crime Movies" />
     <ShowsComponent :shows="computedActionMovies" title="Action Movies" />
+    <SingleShowComponent></SingleShowComponent>
   </div>
 </template>
 

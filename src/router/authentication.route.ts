@@ -1,4 +1,3 @@
-import RegisterViewVue from "../views/RegisterView.vue";
 const registerView = () => import("../views/RegisterView.vue");
 const signInView = () => import("../views/SignInView.vue");
 

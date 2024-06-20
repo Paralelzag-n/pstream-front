@@ -11,7 +11,7 @@ const imageLoaded = ref<boolean>(false);
 const extraDetailMode = ref<boolean>(false);
 const extraDetailModeTimeout = ref<any>(null);
 
-const videoSrc = ref<string | null>(null);
+const videoSrc = ref<string | any>(null);
 const videoLoaded = ref<boolean>(false);
 const videoPlayerRef = ref<HTMLVideoElement | null>(null);
 
@@ -26,7 +26,7 @@ function playVideoWhenReady(): void {
           videoPlayerRef.value?.play();
           videoLoaded.value = true;
         },
-        { once: true },
+        { once: true }
       );
     }
   }

@@ -15,7 +15,7 @@ const videoRef = ref<HTMLVideoElement | null>(null);
 const videoReady = ref<boolean>(false);
 const showCover = ref<boolean>(true);
 
-const playVideoTimeout = ref<number | null>(null);
+const playVideoTimeout = ref<any>(null);
 const timeToStartVideo = 3500;
 
 watch(
@@ -30,7 +30,7 @@ watch(
       }
     });
   },
-  { immediate: true },
+  { immediate: true }
 );
 
 watch(
@@ -45,7 +45,7 @@ watch(
         videoRef.value.play();
       }
     }
-  },
+  }
 );
 
 async function loadVideo() {
@@ -134,7 +134,7 @@ function initialVideoStartIndicator(duration: number) {
 }
 
 const progress = ref<number>(0);
-const transitionSpeed = ref<number>(0.15)
+const transitionSpeed = ref<number>(0.15);
 
 const circleStyle = computed(() => {
   const radius = 28;
@@ -144,8 +144,8 @@ const circleStyle = computed(() => {
   return {
     strokeDasharray: `${circumference} ${circumference}`,
     strokeDashoffset: offset,
-    transform: 'rotate(-90deg)',
-    transformOrigin: '50% 50%',
+    transform: "rotate(-90deg)",
+    transformOrigin: "50% 50%",
     transition: `stroke-dashoffset ${transitionSpeed.value}s`,
   };
 });
@@ -189,25 +189,25 @@ onUnmounted(() => {
 
       <div class="relative flex justify-center items-center">
         <svg
-            :class="{
+          :class="{
             'progress-complete': progress >= 100 && mainSlideshow,
             'opacity-0': !props.mainSlideshow,
           }"
-            class="progress-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            width="56"
-            height="56"
-            viewBox="0 0 60 60"
+          class="progress-ring absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          width="56"
+          height="56"
+          viewBox="0 0 60 60"
         >
           <circle
-              class="progress-ring__circle"
-              :style="circleStyle"
-              stroke="#9747FC"
-              stroke-width="4"
-              stroke-linecap="round"
-              fill="transparent"
-              r="28"
-              cx="30"
-              cy="30"
+            class="progress-ring__circle"
+            :style="circleStyle"
+            stroke="#9747FC"
+            stroke-width="4"
+            stroke-linecap="round"
+            fill="transparent"
+            r="28"
+            cx="30"
+            cy="30"
           />
         </svg>
         <i
@@ -220,10 +220,10 @@ onUnmounted(() => {
 
     <div class="relative bg-cover h-full bg-center vignette">
       <video
-          @ended="handleVideoEnd"
-          ref="videoRef"
-          class="rounded-3xl w-full h-full object-cover"
-          :muted="props.muteVideo"
+        @ended="handleVideoEnd"
+        ref="videoRef"
+        class="rounded-3xl w-full h-full object-cover"
+        :muted="props.muteVideo"
       >
         <source type="video/mp4" />
         Your browser does not support the video tag.
@@ -264,13 +264,17 @@ onUnmounted(() => {
 
 <style scoped>
 .vignette::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: radial-gradient(ellipse at center, transparent, rgba(0, 0, 0, 0.5) 90%);
+  background: radial-gradient(
+    ellipse at center,
+    transparent,
+    rgba(0, 0, 0, 0.5) 90%
+  );
   pointer-events: none;
 }
 
