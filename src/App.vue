@@ -7,7 +7,7 @@ const route = useRoute();
 
 <template>
   <main class="bg-dark-blue min-h-[100%]">
-    <TheHeader v-if="!route.name.startsWith('sign')" />
+    <TheHeader v-if="!(route.name as string)?.startsWith('sign')" />
     <RouterView />
   </main>
 </template>
