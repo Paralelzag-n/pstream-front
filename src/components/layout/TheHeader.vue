@@ -18,8 +18,8 @@ watch(y, (newValue, oldValue) => {
 
 <template>
   <header
-    :class="{ '-translate-y-full': headerVisible || y >= 0 }"
     class="h-20 flex items-center justify-between px-20 fixed top-0 left-0 z-50 bg-dark-blue w-screen transition duration-[0.4s]"
+    :class="{ '-translate-y-full': headerVisible }"
   >
     <div class="flex relative cursor-pointer text-purple">
       <BaseIcon
@@ -76,7 +76,6 @@ watch(y, (newValue, oldValue) => {
         class="text-white flex items-center gap-3 cursor-pointer header_item"
         @click="router.push({ name: 'sign-in' })"
       >
-        <!--        <BaseIcon :size="24" color="white" name="UserCircleIcon" />-->
         <h3>Log in</h3>
       </div>
     </div>
