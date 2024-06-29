@@ -93,7 +93,7 @@ const computedBookmarkClasses = computed(() => ({
       'scale-125 z-20 flex-col': extraDetailMode,
       'hover:scale-[1.02] ': !extraDetailMode,
     }"
-    class="relative rounded-3xl overflow-hidden cursor-pointer transition"
+    class="relative rounded-3xl overflow-hidden cursor-pointer transition duration-[0.4s]"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
   >
@@ -179,7 +179,7 @@ const computedBookmarkClasses = computed(() => ({
     <div
       v-if="!props.minified"
       :class="{
-        'bg-darkest-blue p-3': extraDetailMode,
+        'bg-details-black p-3': extraDetailMode,
       }"
       class="flex-col heading-xs py-3 transition-all"
     >

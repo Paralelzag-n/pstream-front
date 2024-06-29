@@ -13,16 +13,16 @@ const computedFeaturedShows = computed(() => movieStore.getFeaturedMovies);
 console.log(computedFeaturedShows);
 
 const computedTVseries = computed(() =>
-  movieStore.getMoviesByGenre(EGenre.Romance)
+  movieStore.getMoviesByGenre(EGenre.Romance),
 );
 console.log(computedTVseries);
 
 const computedCrimeMovies = computed(() =>
-  movieStore.getMoviesByGenre(EGenre.Crime)
+  movieStore.getMoviesByGenre(EGenre.Crime),
 );
 
 const computedActionMovies = computed(() =>
-  movieStore.getMoviesByGenre(EGenre.Action)
+  movieStore.getMoviesByGenre(EGenre.Action),
 );
 
 console.log(computedActionMovies);
@@ -32,7 +32,7 @@ console.log(computedCrimeMovies);
 
 <template>
   <SlideshowComponent :shows="computedFeaturedShows" />
-  <div class="px-40 py-10">
+  <div class="px-20 py-6">
     <ShowsComponent :shows="computedTVseries" title="Romance Movies" />
     <ShowsComponent :shows="computedCrimeMovies" title="Crime Movies" />
     <ShowsComponent :shows="computedActionMovies" title="Action Movies" />
